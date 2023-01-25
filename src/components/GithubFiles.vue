@@ -1,9 +1,8 @@
 <template>
-    <div>
+    <div v-if="files.length > 0">
       <v-row>
         <v-col cols="12">
-          <div>Caminho: /{{path}}</div>
-          <div @click="voltaPasta()">--------Voltar--------</div>
+          <div class="caminho">Caminho: /{{path}}</div>
             <v-simple-table>
               <template v-slot:default>
                 <thead>
@@ -14,10 +13,11 @@
                 <tbody>
                   <tr  @click="entrouPasta(file.type, file.path)" class="linha" v-for="file in files" :key="file.name">
                     <li class="arquivo">{{ file.name }} </li>
-                    <img v-if="file.type == 'dir'" class="icon" src="./imagens/pasta-de-arquivo.png" alt="">
-                    <img v-else class="icon" src="./imagens/arquivo.png" alt="">
+                    <img v-if="file.type == 'dir'" class="icon" src="../imagens/pasta-de-arquivo.png" alt="">
+                    <img v-else class="icon" src="../imagens/arquivo.png" alt="">
                   </tr>
                 </tbody>
+                <v-btn @click="voltaPasta()" elevation="2">Voltar</v-btn>
               </template>
           </v-simple-table>
         </v-col>
@@ -35,7 +35,7 @@
     import {api} from '~api'
   
     export default {
-      props: ['repo'],
+      props: ['repo', 'user'],
       data: () => ({
         files: [],
         loading: false,
@@ -82,6 +82,9 @@
           } else {
             this.files = []
           }
+        },
+        user(){
+          this.files = []
         }
       }
     }
@@ -97,5 +100,9 @@
 }
 .icon{
   width: 30px;
+}
+.caminho{
+  text-align: left;
+  font-size: 24px;
 }
 </style>

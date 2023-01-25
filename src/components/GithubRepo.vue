@@ -62,11 +62,12 @@
       user() {
         if(this.user){
           this.listaRepositorios()
+          this.$emit('userselected', this.user)
         }
       },
       repo () {
         this.$emit('reposelected', this.repo)
-      }
+      },
     }
   }
 </script>

@@ -33,5 +33,10 @@ export const api = {
         }
         const response = await fetch(url)
         return await response.json()
+    },
+    async listaInfos(user){
+        let url = `https://api.github.com/users/${user}`
+        const response = await fetch(url)
+        return await response.json()
     }
 }
