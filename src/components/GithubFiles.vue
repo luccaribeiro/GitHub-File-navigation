@@ -77,6 +77,7 @@
       watch: {
         repo(){
           this.files = []
+          this.path = ''
           if (this.repo) {
             this.listaFiles()
           } else {
