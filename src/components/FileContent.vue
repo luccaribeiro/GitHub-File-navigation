@@ -1,5 +1,27 @@
 <template>
-    <div class="text-center color">
+<div>
+        <v-dialog
+      v-model="loading"
+      hide-overlay
+      persistent
+      width="600"
+    >
+      <v-card
+        color="#1D262F"
+        dark
+      >
+        <v-card-text>
+          Carregando
+          <v-progress-linear
+            indeterminate
+            color="white"
+            class="mb-0"
+          ></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+        <div class="text-center color">
     <v-dialog v-model="modal" class="color">
       <v-card class="color">
         <v-card-text>
@@ -13,6 +35,7 @@
       </v-card>
     </v-dialog>
   </div>
+</div>
 </template>
 
 <script>
@@ -29,6 +52,7 @@ export default {
       data: () => ({
         modal: false,
         conteudo: '',
+        loading: false,
       }),
       methods: {
         async fechaArquivo(){
@@ -36,7 +60,12 @@ export default {
         },
         async abreArquivo(){
           this.conteudo = await api.conteudoArquivo(this.download_url)
-          this.modal = true
+          this.loading = true
+          setTimeout(() => (this.abreModal()), 2000)
+        },
+        async abreModal(){
+            this.loading = false
+            this.modal = true
         },
       },
       watch:{
