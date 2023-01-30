@@ -109,7 +109,12 @@
 .linha{
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 }
+.linha:hover{
+border: 1px solid black;
+}
+
 .icon{
   width: 30px;
 }
