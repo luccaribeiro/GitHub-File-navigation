@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 async function fetch_all_pages(url){
     let vaiindo = true
     let result = []
@@ -38,5 +40,9 @@ export const api = {
         let url = `https://api.github.com/users/${user}`
         const response = await fetch(url)
         return await response.json()
-    }
+    },
+    async conteudoArquivo(url) {
+        const response = await axios.get(url)
+        return response.data
+    },
 }

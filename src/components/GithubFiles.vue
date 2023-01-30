@@ -3,6 +3,7 @@
       <v-row>
         <v-col cols="12">
           <div class="caminho">Caminho: /{{path}}</div>
+          <v-btn @click="voltaPasta()" elevation="2">Voltar</v-btn>
             <v-simple-table>
               <template v-slot:default>
                 <thead>
@@ -11,13 +12,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr  @click="entrouPasta(file.type, file.path)" class="linha" v-for="file in files" :key="file.name">
+                  <tr  @click="entrouOnde(file.type, file.path, file.download_url)" class="linha" v-for="(file, index) in files" :key="index">
                     <li class="arquivo">{{ file.name }} </li>
                     <img v-if="file.type == 'dir'" class="icon" src="../imagens/pasta-de-arquivo.png" alt="">
                     <img v-else class="icon" src="../imagens/arquivo.png" alt="">
                   </tr>
                 </tbody>
-                <v-btn @click="voltaPasta()" elevation="2">Voltar</v-btn>
               </template>
           </v-simple-table>
         </v-col>
@@ -28,7 +28,7 @@
         </v-col>
       </v-row>
     </div>
-  </template>
+</template>
   
   <script>
   
@@ -72,6 +72,17 @@
               this.path = ''
               this.listaFiles()
             }
+        },
+        async entrouOnde(type, path,download_url){
+            if(type == 'dir'){
+              this.entrouPasta(type, path)
+            } else if(type == 'file'){
+              this.conteudo = ''
+              this.entrouArquivo(download_url)
+            }
+        },
+        async entrouArquivo(download_url){
+            this.$emit('openmodal', download_url)
         },
       },
       watch: {
